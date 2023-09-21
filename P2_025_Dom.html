@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2_025_Dom</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header1">P2_025</div>
+
+    <form onsubmit="return validate()">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td>;</td>
+                    <td>
+                        <input id="nama" type="text" maxlength="20">
+                    </td>
+                    <td id="error_nama" style="color:red;"></td> <!-- tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td>Mata Kuliah</td>
+                    <td>;</td>
+                    <td>
+                        <select id="matakuliah">
+                            <option value="">Pilih Mata Kuliah</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="Fisika">Fisika</option>
+                            <option value="Kimia">Kimia</option>
+                        </select>
+                    </td>
+                    <td id="error_matakuliah" style="color:red;"></td> <!-- tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td>Nilai</td>
+                    <td>;</td>
+                    <td>
+                        <input id="nilai" type="number" min="0" max="100">
+                    </td>
+                    <td id="error_nilai" style="color:red;"></td> <!-- tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td><button type="reset" id="batal" onclick="alert('Your Answer is Canceled')">Batal</button></td>
+                    <!-- <td><input type="submit" value="Kirim"></td> -->
+                    <td></td>
+                    <td><button type="button" id="kirim" onclick="validate()">Kirim</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <script>
+        function validate() {
+            let nama = document.getElementById("nama").value
+            let matakuliah = document.getElementById("matakuliah").value
+            let nilai = document.getElementById("nilai").value
+            let validate = true
+            const regex = /^[a-zA-Z ]*$/
+
+            //validasi nama
+            if (nama.trim() === "") {
+                document.getElementById("error_nama").innerHTML = "Harap isi field Nama!" //tampilkan pesan kesalahan
+                validate = false
+            } else if (nama.length > 20) {
+                document.getElementById("error_nama").innerHTML = "Nama tidak boleh berisi lebih dari 20 karakter!"
+                validate = false
+            } else if (!regex.test(nama)) { // Menggunakan regex.test untuk memeriksa apakah sesuai dengan pola regex
+                document.getElementById("error_nama").innerHTML = "Nama harus berisi huruf dan spasi!"
+                validate = false
+            } else {
+                document.getElementById("error_nama").innerHTML = "" //hapus pesan kesalahan jika valid
+            }
+
+            //validasi mata kuliah
+            if (matakuliah === "") {
+                document.getElementById("error_matakuliah").innerHTML = "Harap pilih Mata Kuliah!" //tampilkan pesan kesalahan
+                validate = false
+            } else {
+                document.getElementById("error_matakuliah").innerHTML = "" //hapus pesan kesalahan jika valid
+            }
+
+            //validasi nilai
+            if (nilai === "") {
+                document.getElementById("error_nilai").innerHTML = "Harap isi field Nilai!" //tampilkan pesan kesalahan
+                validate = false
+            } else {
+                document.getElementById("error_nilai").innerHTML = "" //hapus pesan kesalahan jika valid
+            }
+            return validate
+        }
+
+        document.getElementById("batal").addEventListener("click", function () {
+            // Menghapus pesan kesalahan
+            document.getElementById("error_nama").innerHTML = "";
+            document.getElementById("error_matakuliah").innerHTML = "";
+            document.getElementById("error_nilai").innerHTML = "";
+        });
+    </script>
+</body>
+
+</html>
